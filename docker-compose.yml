@@ -1,0 +1,45 @@
+services:
+  data-platform:
+    build: .
+    container_name: data-platform-all-in-one
+    ports:
+      - "8093:5432"    # PostgreSQL
+      - "8094:22"    # ssh (user devuser)
+      - "27017:27017"  # MongoDB
+      - "6379:6379"    # Redis
+      - "8123:8123"    # ClickHouse HTTP
+      - "9000:9000"    # ClickHouse Native
+      - "9092:9092"    # Kafka
+      - "8091:8080"    # Airflow Webserver
+      - "8090:8089"    # Superset
+      - "8092:8978"    # Dbeaver
+      - "4040:4040"    # Spark UI
+      - "2181:2181"    # ZooKeeper
+    volumes:
+      - mongo_data:/var/lib/mongodb
+      - redis_data:/var/lib/redis
+      - clickhouse_data:/var/lib/clickhouse
+      - kafka_data:/opt/kafka/data
+      - zookeeper_data:/tmp/zookeeper
+      - spark_data:/opt/spark/work
+      - airflow_data:/root/airflow
+      - ./dags:/root/airflow/dags
+      - postgres_data:/postgresql
+      - dbeaver_data:/opt/cloudbeaver
+    environment:
+      - POSTGRES_PASSWORD=admin123
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
+      - AIRFLOW_CONN_POSTGRES_DEFAULT=postgresql://postgres:postgres@db:5432/airflow
+    restart: unless-stopped
+
+volumes:
+  dbeaver_data:
+  postgres_data:
+  mongo_data:
+  redis_data:
+  clickhouse_data:
+  kafka_data:
+  zookeeper_data:
+  spark_data:
+  airflow_data:
