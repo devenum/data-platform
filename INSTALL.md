@@ -1,4 +1,4 @@
-# Подготовка и деплой проэкта
+# Подготовка и деплой проекта
 Склонировать репозиторий https://github.com/devenum/data-platform.git
 ```
 git clone https://github.com/devenum/data-platform.git
