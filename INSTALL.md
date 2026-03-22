@@ -21,6 +21,7 @@ docker exec -it data-platform-all-in-one bash
    sh /superset.init.script.sh
    ```
    в процессе миграций в бд superset postgresql скрипт запросит ввода пароля для учётной записи admin для простоты работы в дальнейшем рекомендую ввести пароль admin.
+   
    2. подготовить для импорта в postgresql файл с данными командой
    ```
    cp /root/airflow/dags/
